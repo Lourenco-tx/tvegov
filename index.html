@@ -1,12 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-<title>Page Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel TV EGOV - 60/40 Full Blue</title>
+    <style>
+        :root {
+            --cor-primaria: #003366; 
+            --cor-fundo-corpo: #ffffff;
+            --cor-azul-institucional: #004a8d;
+            --espacamento: 20px;
+            --raio-borda: 12.5px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--cor-fundo-corpo);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Título do Painel */
+        header {
+            background-color: var(--cor-primaria);
+            color: white;
+            height: 10vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2vw;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        /* Container Principal */
+        main {
+            display: flex;
+            flex: 1;
+            padding: var(--espacamento);
+            gap: var(--espacamento);
+            height: 90vh;
+        }
+
+        /* Área da Tabela (60%) */
+        .area-tabela {
+            flex: 0 0 60%; 
+            background-color: var(--cor-azul-institucional);
+            overflow: hidden; /* Mantém o zoom de 102% dentro dos limites */
+            border-radius: var(--raio-borda);
+            border: 2px solid var(--cor-primaria);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Imagem da Tabela com preenchimento total e leve zoom */
+        .area-tabela img {
+            width: 102%;
+            height: 102%;
+            object-fit: fill; 
+            display: block;
+        }
+
+        /* Coluna Lateral (40%) */
+        .coluna-direita {
+            flex: 0 0 calc(40% - var(--espacamento));
+            display: flex;
+            flex-direction: column;
+            gap: var(--espacamento);
+        }
+
+        /* Carrosséis */
+        .card-carrossel {
+            flex: 1;
+            background-color: var(--cor-azul-institucional);
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--raio-borda);
+            border: 2px solid var(--cor-primaria);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+    <header>
+        ESCOLA DE GOVERNO DO DISTRITO FEDERAL
+    </header>
+
+    <main>
+        <section class="area-tabela">
+            <img src="https://www.egov.df.gov.br/wp-content/uploads/2026/03/agenda-9-13-03-26-2.png" alt="Tabela de Dados">
+        </section>
+
+        <section class="coluna-direita">
+            
+            <div class="card-carrossel" id="carrossel-top">
+                <div class="slide active"><img src="https://www.egov.df.gov.br/wp-content/uploads/2026/03/banner-fluencia-ia.png"></div>
+                <div class="slide"><img src="https://www.egov.df.gov.br/wp-content/uploads/2026/03/banner-libras.png"></div>
+            </div>
+
+            <div class="card-carrossel" id="carrossel-bottom">
+                <div class="slide active"><img src="https://www.egov.df.gov.br/wp-content/uploads/2026/03/banner-libras.png"></div>
+                <div class="slide"><img src="https://www.egov.df.gov.br/wp-content/uploads/2026/03/banner-fluencia-ia.png"></div>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        function iniciarCarrossel(id, tempo) {
+            const container = document.getElementById(id);
+            const slides = container.querySelectorAll('.slide');
+            let atual = 0;
+
+            if (slides.length <= 1) return;
+
+            setInterval(() => {
+                slides[atual].classList.remove('active');
+                atual = (atual + 1) % slides.length;
+                slides[atual].classList.add('active');
+            }, tempo);
+        }
+
+        window.onload = () => {
+            // Inicia os carrosséis com tempos ligeiramente diferentes para naturalidade
+            iniciarCarrossel('carrossel-top', 6000);   // 6 segundos
+            iniciarCarrossel('carrossel-bottom', 8500); // 8,5 segundos
+        };
+    </script>
 
 </body>
 </html>
