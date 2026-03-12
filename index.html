@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel TV EGOV - 60/40 Full Blue</title>
+    <title>Painel TV Egov</title>
     <style>
         :root {
             --cor-primaria: #003366; 
-            --cor-fundo-corpo: #ffffff;
+            /* Mantemos a variável, mas vamos usar a imagem como prioridade */
+            --cor-fundo-corpo: #ffffff; 
             --cor-azul-institucional: #004a8d;
             --espacamento: 20px;
             --raio-borda: 12.5px;
-        }
-
-        /* Ajuste para garantir que a base de tudo seja branca */
-        html {
-            background-color: #ffffff !important;
         }
 
         * {
@@ -24,20 +20,42 @@
             box-sizing: border-box;
         }
 
+        /* --- CORREÇÃO CRÍTICA PARA A TV --- */
+        html, body {
+            /* 1. Define a cor de fundo como branco para garantir */
+            background-color: #ffffff !important;
+            
+            /* 2. Aplica a imagem de fundo que você subiu */
+            background-image: url('fundo-branco.png') !important;
+            
+            /* 3. Garante que a imagem cubra toda a área, sem repetir e centralizada */
+            background-size: cover !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            
+            /* 4. Força a altura total */
+            height: 100% !important;
+            width: 100% !important;
+            
+            /* 5. Remove qualquer transparência que a TV possa interpretar */
+            opacity: 1 !important;
+        }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--cor-fundo-corpo); !important;
-            height: 100vh;
-            width: 100vw;
+            color: #333333;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            /* Garante que o body não tenha margens próprias que mostrem o fundo da TV */
+            margin: 0 !important;
+            padding: 0 !important;
         }
+        /* --- FIM DA CORREÇÃO CRÍTICA --- */
 
-        /* Título do Painel */
         header {
             background-color: var(--cor-primaria);
-            color: white; 
+            color: white;
             height: 10vh;
             display: flex;
             align-items: center;
@@ -49,22 +67,20 @@
             z-index: 10;
         }
 
-        /* Container Principal */
         main {
             display: flex;
             flex: 1;
             padding: var(--espacamento);
             gap: var(--espacamento);
             height: 90vh;
-            /* Garante que o fundo do main também seja branco se houver sobras */
-            background-color: #ffffff !important;
+            /* Garante que o fundo do main também não seja transparente */
+            background-color: #ffffff !important; 
         }
 
-        /* Área da Tabela (60%) */
         .area-tabela {
             flex: 0 0 60%; 
             background-color: var(--cor-azul-institucional);
-            overflow: hidden; /* Mantém o zoom de 102% dentro dos limites */
+            overflow: hidden;
             border-radius: var(--raio-borda);
             border: 2px solid var(--cor-primaria);
             display: flex;
@@ -73,7 +89,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        /* Imagem da Tabela com preenchimento total e leve zoom */
         .area-tabela img {
             width: 102%;
             height: 102%;
@@ -81,7 +96,6 @@
             display: block;
         }
 
-        /* Coluna Lateral (40%) */
         .coluna-direita {
             flex: 0 0 calc(40% - var(--espacamento));
             display: flex;
@@ -89,7 +103,6 @@
             gap: var(--espacamento);
         }
 
-        /* Carrosséis */
         .card-carrossel {
             flex: 1;
             background-color: var(--cor-azul-institucional);
@@ -130,19 +143,19 @@
 
     <main>
         <section class="area-tabela">
-            <img src="agenda-9-13-03-26-2.png" crossorigin="anonymous" alt="Tabela de Dados">
+            <img src="agenda-9-13-03-26-2.png" alt="Tabela de Dados">
         </section>
 
         <section class="coluna-direita">
             
             <div class="card-carrossel" id="carrossel-top">
-                <div class="slide active"><img src="banner-assedio-moral-1.png" crossorigin="anonymous"></div>
-                <div class="slide"><img src="banner-fluencia-ia.png" crossorigin="anonymous"></div>
+                <div class="slide active"><img src="banner-fluencia-ia.png"></div>
+                <div class="slide"><img src="banner-libras.png"></div>
             </div>
 
             <div class="card-carrossel" id="carrossel-bottom">
-                <div class="slide active"><img src="banner-libras.png" crossorigin="anonymous"></div>
-                <div class="slide"><img src="banner-planner-2.png" crossorigin="anonymous"></div>
+                <div class="slide active"><img src="banner-libras.png"></div>
+                <div class="slide"><img src="banner-fluencia-ia.png"></div>
             </div>
 
         </section>
@@ -164,9 +177,8 @@
         }
 
         window.onload = () => {
-            // Inicia os carrosséis com tempos ligeiramente diferentes para naturalidade
-            iniciarCarrossel('carrossel-top', 6000);   // 6 segundos
-            iniciarCarrossel('carrossel-bottom', 8500); // 8,5 segundos
+            iniciarCarrossel('carrossel-top', 6000);
+            iniciarCarrossel('carrossel-bottom', 8500);
         };
     </script>
 
